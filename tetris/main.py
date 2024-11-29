@@ -342,7 +342,7 @@ class Z(Block):
         self.rect.y = -30 + 50
         self.x = 4
         self.y = 0
-        self.state = [[[1, 1, 0], [0, 1, 1], [0, 0, 0]], [[0, 0, 1], [0, 1, 1], [0, 1, 0]], [[0, 0, 0], [1, 1, 0], [1, 1, 0]], [[0, 1, 0], [1, 1, 0], [1, 0, 0]]]
+        self.state = [[[1, 1, 0], [0, 1, 1], [0, 0, 0]], [[0, 0, 1], [0, 1, 1], [0, 1, 0]], [[0, 0, 0], [1, 1, 0], [0, 1, 1]], [[0, 1, 0], [1, 1, 0], [1, 0, 0]]]
         #           [][]..                               ....[]                             ......                             ..[]..
         #           ..[][]                               ..[][]                             [][]..                             [][]..
         #           ......                               ..[]..                             ..[][]                             []....
@@ -376,7 +376,7 @@ holded = False
 firstHold = True
 minoAdded = False
 while running:
-    clock.tick(60)
+    clock.tick(120)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -450,7 +450,7 @@ while running:
                 newGhost = Mino(newBlock.x + j, newBlock.y + i+move, 7)
                 ghostPiece.add(newGhost)
     
-    if(moveTimer >= 3):
+    if(moveTimer >= 4):
         movement = False
 
     if movement == False and hardDropDelay == 0:
@@ -512,7 +512,7 @@ while running:
         startLockDelay = False
         lockDelay = 40
 
-    if(fallTimer == fallSpeed and not startLockDelay):
+    if(fallTimer >= fallSpeed and not startLockDelay):
         newBlock.fall()
         fallTimer = 0
 
@@ -569,9 +569,12 @@ while running:
         hardDropDelay -= 1
 
     if temp >= 10:
-        if fallSpeed > 10:
-            fallSpeed -= 1
-        temp -= 10 
+        fallSpeed = int(fallSpeed * 0.9)
+        if fallSpeed-temp < 1:
+            fallSpeed = 1
+        temp -= 10
+        
+    print(line , fallSpeed)
 
     screen.fill((255, 255, 255))
     screen.blit(background, (0, 0))
