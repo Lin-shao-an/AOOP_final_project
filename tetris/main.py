@@ -1,14 +1,57 @@
 import pygame
 import random
 
-quitKey = pygame.K_ESCAPE
-leftKey = pygame.K_LEFT 
-rightKey = pygame.K_RIGHT 
-softDropKey = pygame.K_DOWN
-hardDropKey = pygame.K_SPACE
-rotateLeftKey = pygame.K_z
-rotateRightKey = pygame.K_UP
-holdKey = pygame.K_c
+keys = []
+
+config = open('config.txt','r')
+for i in config:
+    k = i.split("= ")[1]
+    k = k.split("\n")[0]
+    k = k.lower()
+    print(k)
+    match k:
+        case 'a' : keys.append(pygame.K_a)
+        case 'b' : keys.append(pygame.K_b)
+        case 'c' : keys.append(pygame.K_c)
+        case 'd' : keys.append(pygame.K_d)
+        case 'e' : keys.append(pygame.K_e)
+        case 'f' : keys.append(pygame.K_f)
+        case 'g' : keys.append(pygame.K_g)
+        case 'h' : keys.append(pygame.K_h)
+        case 'i' : keys.append(pygame.K_i)
+        case 'j' : keys.append(pygame.K_j)
+        case 'k' : keys.append(pygame.K_k)
+        case 'l' : keys.append(pygame.K_l)
+        case 'm' : keys.append(pygame.K_m)
+        case 'n' : keys.append(pygame.K_n)
+        case 'o' : keys.append(pygame.K_o)
+        case 'p' : keys.append(pygame.K_p)
+        case 'q' : keys.append(pygame.K_q)
+        case 'r' : keys.append(pygame.K_r)
+        case 's' : keys.append(pygame.K_s)
+        case 't' : keys.append(pygame.K_t)
+        case 'u' : keys.append(pygame.K_u)
+        case 'v' : keys.append(pygame.K_v)
+        case 'w' : keys.append(pygame.K_w)
+        case 'x' : keys.append(pygame.K_x)
+        case 'y' : keys.append(pygame.K_y)
+        case 'z' : keys.append(pygame.K_z)
+        case 'left' : keys.append(pygame.K_LEFT)
+        case 'right' : keys.append(pygame.K_RIGHT)
+        case 'up' : keys.append(pygame.K_UP)
+        case 'down' : keys.append(pygame.K_DOWN)
+        case 'space' : keys.append(pygame.K_SPACE)
+        case 'esc' : keys.append(pygame.K_ESCAPE)
+        case _: keys.append(pygame.K_ESCAPE)
+
+leftKey = keys[0]
+rightKey = keys[1]
+softDropKey = keys[2]
+hardDropKey = keys[3]
+rotateLeftKey = keys[4]
+rotateRightKey = keys[5]
+holdKey = keys[6]
+quitKey = keys[7]
 
 pygame.init()
 screen = pygame.display.set_mode((600, 760))
