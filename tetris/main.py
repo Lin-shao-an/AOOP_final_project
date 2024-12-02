@@ -7,8 +7,8 @@ rightKey = pygame.K_RIGHT
 softDropKey = pygame.K_DOWN
 hardDropKey = pygame.K_SPACE
 rotateLeftKey = pygame.K_z
-rotateRightKey = pygame.K_x or pygame.K_UP
-holdKey = pygame.K_c or pygame.K_LSHIFT
+rotateRightKey = pygame.K_UP
+holdKey = pygame.K_c
 
 pygame.init()
 screen = pygame.display.set_mode((600, 760))
@@ -147,9 +147,11 @@ class Block(pygame.sprite.Sprite):
                         case 3: table = kickTableN[3]
                 for i in range(len(table)):
                     canRotate = True
+                    tempX = self.x + table[i][0]
+                    tempY = self.y - table[i][1]
                     for j in range (self.size):
                         for k in range (self.size):
-                            if self.state[(self.idx+1)%4][j][k] == 1 and board[self.y + j - table[i][1]][self.x + k + table[i][0]] == 1:
+                            if self.state[(self.idx+1)%4][j][k] == 1 and board[tempY + j][tempX + k] == 1:
                                 canRotate = False
                                 break
                         if not canRotate:
@@ -160,8 +162,8 @@ class Block(pygame.sprite.Sprite):
                         self.space = self.state[self.idx]
                         self.rect.x += table[i][0]*30
                         self.rect.y -= table[i][1]*30
-                        self.x += table[i][0]
-                        self.y -= table[i][1]
+                        self.x = tempX
+                        self.y = tempY
                         break
             self.rotating = True
         elif keys[rotateLeftKey]: #left rotate
@@ -177,14 +179,16 @@ class Block(pygame.sprite.Sprite):
                 else:
                     match(self.idx):
                         case 0: table = kickTableN[2]
-                        case 1: table = kickTableN[3]
+                        case 1: table = kickTableN[1]
                         case 2: table = kickTableN[0]
-                        case 3: table = kickTableN[1]
+                        case 3: table = kickTableN[3]
                 for i in range(len(table)):
                     canRotate = True
+                    tempX = self.x + table[i][0]
+                    tempY = self.y - table[i][1]
                     for j in range (self.size):
                         for k in range (self.size):
-                            if self.state[(self.idx+3)%4][j][k] == 1 and board[self.y + j - table[i][1]][self.x + k - table[i][0]] == 1:
+                            if self.state[(self.idx+3)%4][j][k] == 1 and board[tempY + j][tempX + k] == 1:
                                 canRotate = False
                                 break
                         if not canRotate:
@@ -193,10 +197,10 @@ class Block(pygame.sprite.Sprite):
                         self.image = pygame.transform.rotate(self.image, 90)
                         self.idx = (self.idx+3)%4
                         self.space = self.state[self.idx]
-                        self.rect.x -= table[i][0]*30
+                        self.rect.x += table[i][0]*30
                         self.rect.y -= table[i][1]*30
-                        self.x -= table[i][0]
-                        self.y -= table[i][1]
+                        self.x = tempX
+                        self.y = tempY
                         break
             self.rotating = True
         else:
@@ -573,8 +577,6 @@ while running:
         if fallSpeed-temp < 1:
             fallSpeed = 1
         temp -= 10
-        
-    #print(line , fallSpeed)
 
     screen.fill((255, 255, 255))
     screen.blit(background, (0, 0))
