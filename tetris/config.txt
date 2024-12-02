@@ -1,0 +1,8 @@
+Move Left = left
+Move Right = right
+Soft Drop = down
+Hard Drop = space
+Rotate Left = z
+Rotate Right = up
+Hold = c
+Quit = esc
