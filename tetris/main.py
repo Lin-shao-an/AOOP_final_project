@@ -2,13 +2,13 @@ import pygame
 import random
 
 quitKey = pygame.K_ESCAPE
-leftKey = pygame.K_j
-rightKey = pygame.K_o
-softDropKey = pygame.K_i
+leftKey = pygame.K_LEFT 
+rightKey = pygame.K_RIGHT 
+softDropKey = pygame.K_DOWN
 hardDropKey = pygame.K_SPACE
-rotateLeftKey = pygame.K_r
-rotateRightKey = pygame.K_t
-holdKey = pygame.K_e
+rotateLeftKey = pygame.K_z
+rotateRightKey = pygame.K_x or pygame.K_UP
+holdKey = pygame.K_c or pygame.K_LSHIFT
 
 pygame.init()
 screen = pygame.display.set_mode((600, 760))
@@ -574,7 +574,7 @@ while running:
             fallSpeed = 1
         temp -= 10
         
-    print(line , fallSpeed)
+    #print(line , fallSpeed)
 
     screen.fill((255, 255, 255))
     screen.blit(background, (0, 0))
